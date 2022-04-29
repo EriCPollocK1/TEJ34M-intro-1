@@ -49,7 +49,7 @@ int main(void)
             LED5 = 0;
             __delay_ms(100);
             LED6 = 0;
-            __delay_ms(100);
+            __delay_ms(4204);
         }
         if(SW3 == 0)
         {
@@ -81,20 +81,23 @@ int main(void)
  * 1. How many times do the LEDs flash if SW2 is quickly pressed and released?
  *    Do the LEDs keep flashing when SW2 is held? Look at the program and
  *    explain why this happens when SW2 is held.
- * 
+they flash once and stay on if the button is held.
  * 2. Explain the difference between the statements: LED3 = 0; and LED3 = 1;
- * 
+the first statment is for when you want the LED off and the second command is 
+for when you want it on.
  * 3. What voltage do you expect the microcontroller to output to LED D3 when
  *    the statement LED3 = 0; runs? What voltage do you expect the output to be
  *    when the statement LED3 = 1; runs?
- * 
+When it will be = 0 there will be ov sent to the led, but when it is = 1 
+there will be 5v sent to it.
  *    You can confirm the output voltage with a voltmeter if you have access
  *    to one. If you tried that, did the voltage match your prediction?
- * 
+yes it matches.
  * 4. The statement 'if(SW2 == 0)' uses two equal signs, while the statement
  *    'LED3 = 1;' uses a single equal sign. What operation is performed by one
  *    equal sign? What operation is performed by two equal signs?
- * 
+The two equal signs make it check if the two sides are equal, while one equal sign
+makes the two sides equal.
  * 5. The following program code includes instructions that write to the PORTC
  *    output latches directly. Try it by copying and pasting this code below
  *    the existing SW2 'if' structure, at the location shown by the comment.
@@ -110,7 +113,8 @@ int main(void)
  *    What happens when pushbutton SW3 is pressed? Identify at least one
  *    advantage and one disadvantage of controlling the LEDs using 'LATC' writes
  *    rather than through individual 'LEDn = x;' statements.
- * 
+all the leds turn on, the advantage to using LATC is that you can control all the leds 
+at the same time.
  * 6. Next, compare the operation of 'if' and 'while' structures to simulate
  *    momentary buttons. Replace the code you added in 5, above, with this code:
 
@@ -135,11 +139,13 @@ int main(void)
  * 
  *    Next, press and hold SW3 while pressing and releasing SW4. Does it work
  *    as expected?
- * 
+yes, as you are able to turn switch on and off LED5 while LED4 stays on the whole time.
  *    Next, try press and holding SW4 while pressing and releasing SW3. Does it
  *    work as expected? Explain the difference in operation between the 'if' and
  *    'while' structures making up the momentary button code.
- * 
+it doesn't work as expected as you can't turn on and off the LED4 as you hold LED5 on.
+this is because SW3 is in an if statement which will run and check other codes while it si running the if statement,
+the while statement will not run the if code as it will never leave the while code.
  * 7. Let's explore logical conditions using 'if' statements. Replace the code
  *    added in 6, above, with this nested if code to make a logical AND
  *    condition that will light LED D4 only if both SW3 and SW4 are pressed:
@@ -163,7 +169,7 @@ int main(void)
 
  *    Test the code to ensure it works as expected. Does the order of the if
  *    conditions matter? (eg. swap the conditional checks for SW3 and SW4)
- * 
+no the order of the code doesn't matter as it is an and code which will require both buttons to be pressed.
  * 8. Next, replace the code from 7 with the following code which implements a
  *    logical AND conditional operator composed of two ampersands '&&':
  
@@ -180,7 +186,7 @@ int main(void)
  *    Does '&&' work the same way as the nested if structures? Can you think of
  *    at least one advantage of using a logical conditional operator instead of
  *    nested if structures?
- * 
+it shortens the code and is easier to check if it is an and code.
  * 9. Replace the double ampersand '&&' with double vertical bars '||)' to make
  *    a logical OR conditional operator. Your code should look like this:
   
@@ -195,17 +201,17 @@ int main(void)
         }
 
  *    Describe the conditions under which LED4 turns on.
- * 
- * 
+LED4 will turn on if either of the buttons are pressed or if both, as long as there
+is any of the determined buttons pressed LED4 will turn on.
  * Programming Activities
  * 
  * 1. The statement '__delay_ms(100);' creates a 100ms delay. Try changing one
  *    or more of the delay values in the program to 500ms and see what happens.
- * 
+it just makes the delay longer
  *    Can the delay be made even longer? Try 1000 ms. How big can the delay be
  *    before MPLAB-X produces an error message? (Hint: can you think of a fast
  *    and efficient way of guessing an unknown number?)
- * 
+you can go to right around 4204ms.
  * 2. The '__delay_ms();' function only accepts integers as delay values. To
  *    make delays shorter than 1ms, specify a delay in microseconds using the
  *    '__delay_us();' function. You won't be able to see such short LED flashes
