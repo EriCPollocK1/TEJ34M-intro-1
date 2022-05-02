@@ -31,43 +31,18 @@ int main(void)
     // Code in this while loop runs repeatedly.
     while(1)
 	{
-        // If SW2 is pressed, make a flashy light pattern
         if(SW2 == 0)
         {
-            LED3 = 1;
-            __delay_ms(100);
-            LED4 = 1;
-            __delay_ms(100);
-            LED5 = 1;
-            __delay_ms(100);
-            LED6 = 1;
-            __delay_ms(100);
-            LED3 = 0;
-            __delay_ms(100);
-            LED4 = 0;
-            __delay_ms(100);
-            LED5 = 0;
-            __delay_ms(100);
-            LED6 = 0;
-            __delay_ms(4204);
-        }
-        if(SW3 == 0)
-        {
             BEEPER = 1;
-            __delay_ms(1.136);
+            __delay_us(500);
             BEEPER = 0;
-            __delay_ms(1.136);
-        }
-        if(SW4 == 0)
-        {
-            LED5 = 1;
-        }
-        else
-        {
-            LED5 = 0;
+            __delay_us(500);
+            BEEPER = 1;
+            __delay_us(200);
+            BEEPER = 0;
+            __delay_us(200);
         }
         // Add code for your Program Analysis and Programming Activities here:
-
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
         {
@@ -230,7 +205,7 @@ you can go to right around 4204ms.
  *    Try changing the delay values in both of the __delay_us(); functions.
  *    Does the pitch of the tone increase or decrease if the delay value is
  *    made smaller?
- * 
+the smaller the delay the higher the pitch
  * 3. This code demonstrates a more compact way of toggling the beeper output
  *    using a logical NOT operator '!'. Replace the code above, with this code:
  
@@ -246,41 +221,133 @@ you can go to right around 4204ms.
  *    be in after this code runs? While one advantage of this method is smaller
  *    code, can you think of one or more disadvantages based on its output when
  *    the button is released?
- * 
+one disadvantage is that you can't set multiple values of delay time which would be the pitch,
+so you could onyl have one pitch for when that button is on
  * 4. Using modified versions of the original SW2 'if' structure, create a
  *    program that makes a unique LED flashing pattern for each pushbutton.
- * 
+  if(SW2 == 0)
+        {
+            LED3 = 1;
+            __delay_ms(100);
+            LED4 = 1;
+            __delay_ms(100);
+            LED5 = 1;
+            __delay_ms(100);
+            LED6 = 1;
+            __delay_ms(100);
+            LED3 = 0;
+            __delay_ms(100);
+            LED4 = 0;
+            __delay_ms(100);
+            LED5 = 0;
+            __delay_ms(100);
+            LED6 = 0;
+            __delay_ms(100);
+        }
+        if(SW3 == 0)
+        {
+            LED6 = 1;
+            __delay_ms(100);
+            LED5 = 1;
+            __delay_ms(100);
+            LED4 = 1;
+            __delay_ms(100);
+            LED3 = 1;
+            __delay_ms(100);
+            LED6 = 0;
+            __delay_ms(100);
+            LED5 = 0;
+            __delay_ms(100);
+            LED4 = 0;
+            __delay_ms(100);
+            LED3 = 0;
+            __delay_ms(100);
+        }
  *    Test each of your flashing patterns. Describe what happens when more than
  *    one button is held. Do all of the patterns try to flash the LEDs at the
  *    same time, or sequentially? Explain why this is.
- * 
+it will run them sequentially, i think this is because it will send all the commands for the 
+first thing that was run but then once it finishes it, it will then go to the next command runs.
  * 5. Create a program that makes a different tone for each pushbutton.
- * 
+  while(1)
+	{
+        if(SW2 == 0)
+        {
+            BEEPER = 1;
+            __delay_us(560);
+            BEEPER = 0;
+            __delay_us(560);
+        }
+        if(SW3 == 0)
+        {
+        BEEPER = 1;
+        __delay_us(100);
+        BEEPER = 0;
+        __delay_us(100);
+        }
+        if(SW4 == 0)
+        {
+            BEEPER = 1;
+            __delay_us(400);
+            BEEPER = 0;
+            __delay_us(400);
+        }
+        if(SW5 == 0)
+        {
+        BEEPER = 1;
+        __delay_us(200);
+        BEEPER = 0;
+        __delay_us(200);
+        }
  *    Test each tone by pressing each button individually. Next, press two or
  *    more buttons at the same time. Describe what the tone waveform would look
  *    like when more than one button is held.
- * 
+when you press more than one button at a time then the waveform will combine to make a new sound.
  * 6. Use individual 'if' structures to simulate 'Start' and 'Stop' buttons for
  *    an industrial machine. LED D4 should turn on when SW3 is pressed, stay on
  *    even after SW3 is released, and turn off when SW4 is pressed. Test your
  *    program to make sure it works.
- * 
+if(SW3 == 0)
+        {
+            LED4 = 1;
+        }
+        if(SW4 == 0)
+        {
+            LED4 = 0;
+        }
  * 7. Running your program from 6, above, describe what happens when both SW3
  *    and SW4 are pressed. Does LED D4 stay on? If so, how does the brightness
  *    of LED D4 compare between its normal on state following SW3 being pressed
  *    to this new state when both SW3 and SW4 are bing held? Can you explain
  *    why it changes?
- * 
+it does stay on but at half the brightness of what is was when just SW3 is pressed,
+this is probably just like when the beeper had multiple inputs, the waves are interffering 
+thus making a dimmer light.
  * 8. As you can imagine, an industrial machine that is able to turn on even
  *    while its 'Stop' button is pressed represents a significant safety hazard.
  *    Using a logical conditional operator, modify the start-stop program from
  *    activity 5 to make it safer. SW3 should only turn on LED D4 if SW4 is
  *    released.
- * 
+ if(SW3 == 0 && SW4 == 1)
+        {
+            LED4 = 1;
+        }
+        if(SW4 == 0)
+        {
+            LED4 = 0;
+        }
  * 9. LED D1 is normally used to indicate that a program is running, but it can
  *    be controlled by your program as well. If you take a look at the UBMP4
  *    schematic, you will see that LED D1's cathode (or negative) pin is
  *    connected to the microcontroller instead of the anode (positive) pin as
  *    with the other LEDs. This means that you need to make D1's output a zero
  *    to turn D1 on. Try it! Make a program that controls or flashes LED D1.
+  if(SW2 == 0)
+        {
+            LED1 = 1;
+        }
+        else
+        {
+            LED1 = 0;
+        }
  */
